@@ -1,7 +1,6 @@
 import 'package:ecom/models/models.dart';
 import 'package:ecom/screens/screens.dart';
 import 'package:flutter/material.dart';
-
 class AppRouter {
   static Route onGenerateRoute(RouteSettings settings) {
     print('this is a route ${settings.name}');
@@ -24,6 +23,12 @@ class AppRouter {
         return OrderConfirmaton.route();
       case PaymentScreen.routeName:
         return PaymentScreen.route();
+      case StartScreen.routeName:
+        return StartScreen.route();
+      case LoginScreen.routeName:
+        return LoginScreen.route();
+      case SignUpScreen.routeName:
+        return SignUpScreen.route();
       default:
         return _error();
     }

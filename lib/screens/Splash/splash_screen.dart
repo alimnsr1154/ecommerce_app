@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+
 class SplashScreen extends StatefulWidget {
   static const String routeName = '/splash';
 
@@ -22,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(const Duration(seconds: 2), () {
       Navigator.of(context).popUntil((route) => route.isFirst);
-      Navigator.pushReplacementNamed(context, '/');
+      Navigator.pushReplacementNamed(context, '/start');
     });
   }
 
@@ -46,7 +47,10 @@ class _SplashScreenState extends State<SplashScreen> {
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Text(
               'Zero To Unicorn',
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.white),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium!
+                  .copyWith(color: Colors.white),
             ),
           ),
         ],

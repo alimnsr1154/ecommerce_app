@@ -1,51 +1,55 @@
-import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:ecom/repositories/auth/auth_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart' as auth;
-import 'package:ecom/models/models.dart';
-import 'package:ecom/repositories/repository.dart';
+import 'package:meta/meta.dart';
+
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final AuthRepository _authRepository;
-  final UserRepository _userRepository;
-  StreamSubscription<auth.User?>? _authUserSubscription;
-
-  AuthBloc({
-    required AuthRepository authRepository,
-    required UserRepository userRepository,
-  })  : _authRepository = authRepository,
-        _userRepository = userRepository,
-        super(const AuthState.unknown()) {
-    on<AuthUserChanged>(_onAuthUserChanged);
-
-    _authUserSubscription = _authRepository.user.listen((authUser) {
-      print('Auth user: $authUser');
-      if (authUser != null) {
-        _userRepository.getUser(authUser.uid).listen((user) {
-          add(AuthUserChanged(authUser: authUser, user: user));
-        });
-      } else {
-        add(AuthUserChanged(authUser: authUser));
+  final AuthRepository authRepository;
+  AuthBloc({required this.authRepository}) : super(UnAuthenticated()) {
+    // When User Presses the SignIn Button, we will send the SignInRequested Event to the AuthBloc to handle it and emit the Authenticated State if the user is authenticated
+    on<SignInRequested>((event, emit) async {
+      emit(Loading());
+      try {
+        await authRepository.signIn(
+            email: event.email, password: event.password);
+        emit(Authenticated());
+      } catch (e) {
+        emit(AuthError(e.toString()));
+        emit(UnAuthenticated());
       }
     });
-  }
-
-  void _onAuthUserChanged(
-      AuthUserChanged event,
-      Emitter<AuthState> emit,
-      ) {
-    event.authUser != null
-        ? emit(AuthState.authenticated(
-        authUser: event.authUser!, user: event.user!))
-        : emit(const AuthState.unauthenticated());
-  }
-
-  @override
-  Future<void> close() {
-    _authUserSubscription?.cancel();
-    return super.close();
+    // When User Presses the SignUp Button, we will send the SignUpRequest Event to the AuthBloc to handle it and emit the Authenticated State if the user is authenticated
+    on<SignUpRequested>((event, emit) async {
+      emit(Loading());
+      try {
+        await authRepository.signUp(
+            email: event.email, password: event.password);
+        emit(Authenticated());
+      } catch (e) {
+        emit(AuthError(e.toString()));
+        emit(UnAuthenticated());
+      }
+    });
+    // When User Presses the Google Login Button, we will send the GoogleSignInRequest Event to the AuthBloc to handle it and emit the Authenticated State if the user is authenticated
+    on<GoogleSignInRequested>((event, emit) async {
+      emit(Loading());
+      try {
+        await authRepository.signInWithGoogle();
+        emit(Authenticated());
+      } catch (e) {
+        emit(AuthError(e.toString()));
+        emit(UnAuthenticated());
+      }
+    });
+    // When User Presses the SignOut Button, we will send the SignOutRequested Event to the AuthBloc to handle it and emit the UnAuthenticated State
+    on<SignOutRequested>((event, emit) async {
+      emit(Loading());
+      await authRepository.signOut();
+      emit(UnAuthenticated());
+    });
   }
 }

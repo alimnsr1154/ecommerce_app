@@ -7,3 +7,6 @@ export 'Splash/splash_screen.dart';
 export 'checkout/checkout_screen.dart';
 export 'order/order.dart';
 export 'payment_selection/payment_selection_screen.dart';
+export 'login/login_screen.dart';
+export 'signup/signup.dart';
+export 'start/start_screen.dart';

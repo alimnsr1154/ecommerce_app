@@ -3,11 +3,6 @@ import 'package:ecom/config/app_route.dart';
 import 'package:ecom/config/theme.dart';
 import 'package:ecom/models/models.dart';
 import 'package:ecom/observer.dart';
-import 'package:ecom/repositories/auth/auth_repository.dart';
-import 'package:ecom/repositories/category/category_repository.dart';
-import 'package:ecom/repositories/checkout/checkout_repository.dart';
-import 'package:ecom/repositories/local_storage/local_storage_repository.dart';
-import 'package:ecom/repositories/product/product_repository.dart';
 import 'package:ecom/repositories/repository.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +38,6 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => AuthBloc(
               authRepository: context.read<AuthRepository>(),
-              userRepository: context.read<UserRepository>(),
             ),
           ),
           BlocProvider(
