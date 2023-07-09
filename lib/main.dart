@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
           create: (context) => AuthRepository(),
         ),
         RepositoryProvider(
-          create: (context) => UserRepository(),
+          create: (context) => ProductRepository(),
         ),
       ],
       child: MultiBlocProvider(
@@ -46,6 +46,10 @@ class MyApp extends StatelessWidget {
             )..add(StartWishlist()),
             lazy: false,
           ),
+          BlocProvider(
+              create: (context) => ProductBloc(
+                  productRepository: context.read<ProductRepository>())
+                ..add(LoadProducts())),
           BlocProvider(create: (_) => CartBloc()..add(CartStarted())),
           BlocProvider(create: (_) => PaymentBloc()..add(LoadPaymentMethod())),
           BlocProvider(
@@ -53,9 +57,6 @@ class MyApp extends StatelessWidget {
                 CategoryBloc(categoryRepository: CategoryRepository())
                   ..add(LoadCategories()),
           ),
-          BlocProvider(
-              create: (_) => ProductBloc(productRepository: ProductRepository())
-                ..add(LoadProducts())),
           BlocProvider(
               create: (context) => CheckoutBloc(
                   checkoutRepository: CheckoutRepository(),
