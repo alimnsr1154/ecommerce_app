@@ -5,25 +5,26 @@ class HeroCarousalCard extends StatelessWidget {
   late final Category? category;
   late final Product? product;
 
-  HeroCarousalCard({this.category,this.product});
+  HeroCarousalCard({this.category, this.product});
 
   @override
   Widget build(BuildContext context) {
-
-    return  InkWell(
+    return InkWell(
       onTap: () {
-        if(product == null) {
-          Navigator.pushNamed(context, '/catalog',arguments: category);
+        if (product == null) {
+          Navigator.pushNamed(context, '/catalog', arguments: category);
         }
       },
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 5.0,vertical: 20.0),
+        margin: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 20.0),
         child: ClipRRect(
             borderRadius: const BorderRadius.all(Radius.circular(5.0)),
             child: Stack(
               children: <Widget>[
                 Image.asset(
-                    product == null ? category!.img_url : product!.image_url, fit: BoxFit.cover, width: 1000.0),
+                    product == null ? category!.img_url : product!.image_url,
+                    fit: BoxFit.cover,
+                    width: 1000.0),
                 Positioned(
                   bottom: 0.0,
                   left: 0.0,
@@ -43,7 +44,10 @@ class HeroCarousalCard extends StatelessWidget {
                         vertical: 10.0, horizontal: 20.0),
                     child: Text(
                       product == null ? category!.name : '',
-                      style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.white),
+                      style: Theme.of(context)
+                          .textTheme
+                          .displaySmall!
+                          .copyWith(color: Colors.white),
                     ),
                   ),
                 ),
@@ -52,6 +56,4 @@ class HeroCarousalCard extends StatelessWidget {
       ),
     );
   }
-
 }
-

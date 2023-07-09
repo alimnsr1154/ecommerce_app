@@ -8,6 +8,7 @@ class product_card extends StatelessWidget {
   final double width;
   final double leftPosition;
   final bool isWishlist;
+
   const product_card({
     super.key,
     required this.products,
@@ -20,16 +21,18 @@ class product_card extends StatelessWidget {
   Widget build(BuildContext context) {
     double widthvalue = MediaQuery.of(context).size.width / width;
     return InkWell(
-      onTap: (){
-        Navigator.pushNamed(context, '/product',arguments: products);
+      onTap: () {
+        Navigator.pushNamed(context, '/product', arguments: products);
       },
       child: Stack(
         children: [
           Container(
             width: widthvalue,
             height: 150,
-            child: Image.asset(products.image_url,
-              fit: BoxFit.cover,),
+            child: Image.asset(
+              products.image_url,
+              fit: BoxFit.cover,
+            ),
           ),
           Positioned(
             top: 85,
@@ -63,39 +66,63 @@ class product_card extends StatelessWidget {
                         children: [
                           Text(
                             products.name,
-                            style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.white),),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge!
+                                .copyWith(color: Colors.white),
+                          ),
                           Text(
                             '\$${products.price}',
-                            style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.white),),
-
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(color: Colors.white),
+                          ),
                         ],
                       ),
                     ),
                     BlocBuilder<CartBloc, CartState>(
                       builder: (context, state) {
-                        if(state is CartLoading)
-                          {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }
-                        if(state is CartLoaded) {
-                          return Expanded(child: IconButton(onPressed: (){
-                          context.read<CartBloc>().add(CartAdded(products));
-                          const snackBar = SnackBar(content: Center(child: Text('Added to Cart Successfully')));
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        }, icon: const Icon(Icons.add_circle,color: Colors.white,)));
+                        if (state is CartLoading) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
                         }
-                        else {
-                          return const Text('Something Went Wrong',style: TextStyle(fontSize: 2,color: Colors.white),);
+                        if (state is CartLoaded) {
+                          return Expanded(
+                              child: IconButton(
+                                  onPressed: () {
+                                    context
+                                        .read<CartBloc>()
+                                        .add(CartAdded(products));
+                                    const snackBar = SnackBar(
+                                        content: Center(
+                                            child: Text(
+                                                'Added to Cart Successfully')));
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(snackBar);
+                                  },
+                                  icon: const Icon(
+                                    Icons.add_circle,
+                                    color: Colors.white,
+                                  )));
+                        } else {
+                          return const Text(
+                            'Something Went Wrong',
+                            style: TextStyle(fontSize: 2, color: Colors.white),
+                          );
                         }
-
                       },
                     ),
-                    isWishlist ?
-                    Expanded(child: IconButton(onPressed: (){}, icon: const Icon(Icons.delete,color: Colors.white,)))
+                    isWishlist
+                        ? Expanded(
+                            child: IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: Colors.white,
+                                )))
                         : const SizedBox(),
-
                   ],
                 ),
               ),

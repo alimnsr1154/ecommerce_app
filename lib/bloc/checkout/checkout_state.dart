@@ -20,39 +20,43 @@ class CheckoutLoaded extends CheckoutState {
   final String? subtotal;
   final String? deliveryFee;
   final String? total;
-  final Checkout? checkout;
-  CheckoutLoaded({
-    this.fullName,
-    this.email,
-    this.address,
-    this.city,
-    this.country,
-    this.zipCode,
-    this.products,
-    this.total,
-    this.deliveryFee,
-    this.subtotal}) : checkout = Checkout(fullName: fullName,
-      email: email,
-      address: address,
-      city: city,
-      country: country,
-      zipCode: zipCode,
-      products: products,
-      subtotal: subtotal,
-      deliveryFee: deliveryFee,
-      total: total,
-  );
+  final Checkout checkout;
+
+  CheckoutLoaded(
+      {this.fullName,
+      this.email,
+      this.address,
+      this.city,
+      this.country,
+      this.zipCode,
+      this.products,
+      this.total,
+      this.deliveryFee,
+      this.subtotal})
+      : checkout = Checkout(
+          fullName: fullName,
+          email: email,
+          address: address,
+          city: city,
+          country: country,
+          zipCode: zipCode,
+          products: products,
+          subtotal: subtotal,
+          deliveryFee: deliveryFee,
+          total: total,
+        );
+
   @override
   List<Object?> get props => [
-    fullName,
-    email,
-    address,
-    city,
-    country,
-    zipCode,
-    products,
-    subtotal,
-    deliveryFee,
-    total
-  ];
+        fullName,
+        email,
+        address,
+        city,
+        country,
+        zipCode,
+        products,
+        subtotal,
+        deliveryFee,
+        total
+      ];
 }
