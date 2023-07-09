@@ -3,67 +3,84 @@ import 'package:flutter/material.dart';
 
 class product_card extends StatelessWidget {
   final Product products;
+  final double width;
+  final double leftPosition;
+  final bool isWishlist;
   const product_card({
     super.key,
-    required this.products
+    required this.products,
+    this.width = 2.5,
+    this.leftPosition = 0,
+    this.isWishlist = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          width: MediaQuery.of(context).size.width / 2.5,
-          height: 150,
-          child: Image.network(products.image_url,
-            fit: BoxFit.cover,),
-        ),
-        Positioned(
-          top: 60,
-          child: Container(
-            width: MediaQuery.of(context).size.width / 2.5,
-            height: 80,
-            decoration: BoxDecoration(
-              color: Colors.black.withAlpha(50),
-            ),
+    double widthvalue = MediaQuery.of(context).size.width / width;
+    return InkWell(
+      onTap: (){
+        Navigator.pushNamed(context, '/product',arguments: products);
+      },
+      child: Stack(
+        children: [
+          Container(
+            width: widthvalue,
+            height: 150,
+            child: Image.network(products.image_url,
+              fit: BoxFit.cover,),
           ),
-        ),
-        Positioned(
-          top: 60,
-          left: 5,
-          child: Container(
-            width: MediaQuery.of(context).size.width / 2.5 - 10,
-            height: 70,
-            decoration: BoxDecoration(
-              color: Colors.black,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          products.name,
-                          style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.white),),
-                        Text(
-                          '\$${products.price}',
-                          style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.white),),
-
-                      ],
-                    ),
-                  ),
-                  Expanded(child: IconButton(onPressed: (){}, icon: Icon(Icons.add_circle,color: Colors.white,))),
-                ],
+          Positioned(
+            top: 85,
+            left: leftPosition,
+            child: Container(
+              width: widthvalue - leftPosition,
+              height: 55,
+              decoration: const BoxDecoration(
+                color: Colors.white70,
               ),
             ),
           ),
-        ),
-      ],
+          Positioned(
+            top: 90,
+            left: leftPosition + 5,
+            child: Container(
+              width: widthvalue - 10 - leftPosition,
+              height: 45,
+              decoration: const BoxDecoration(
+                color: Colors.black,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            products.name,
+                            style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.white),),
+                          Text(
+                            '\$${products.price}',
+                            style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.white),),
+
+                        ],
+                      ),
+                    ),
+                    Expanded(child: IconButton(onPressed: (){}, icon: const Icon(Icons.add_circle,color: Colors.white,))),
+                    isWishlist ?
+                    Expanded(child: IconButton(onPressed: (){}, icon: const Icon(Icons.delete,color: Colors.white,)))
+                        : const SizedBox(),
+
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -14,7 +14,7 @@ class SectionTitle extends StatelessWidget {
       child: Align(
         alignment: Alignment.topLeft,
         child: Text(title,
-            style : Theme.of(context).textTheme.displayMedium),
+            style : Theme.of(context).textTheme.displaySmall),
       ),
     );
   }

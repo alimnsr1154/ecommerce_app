@@ -11,13 +11,13 @@ ThemeData theme () {
 TextTheme textTheme(){
   return const TextTheme(
     displayLarge: TextStyle(color: Colors.black,
-        fontSize: 32,
+        fontSize: 26,
         fontFamily: 'Avenir',
-        fontWeight: FontWeight.bold),
+        ),
     displayMedium:TextStyle(color: Colors.black,
-        fontSize: 24,
+        fontSize: 22,
         fontFamily: 'Avenir',
-        fontWeight: FontWeight.bold),
+        ),
     displaySmall :TextStyle(color: Colors.black,
         fontSize: 16,
         fontFamily: 'Avenir',

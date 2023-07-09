@@ -17,27 +17,29 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: Custom_app_bar(title: 'Zero to Unicorn'),
       bottomNavigationBar:const Custom_nav_bar(),
-      body: Column(
-        children: [
-          Container(
-              child: CarouselSlider(
-                options: CarouselOptions(
-                  aspectRatio: 1.5,
-                  viewportFraction: 0.9,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+                child: CarouselSlider(
+                  options: CarouselOptions(
+                    aspectRatio: 1.5,
+                    viewportFraction: 0.9,
 
-                  enlargeCenterPage: true,
-                  enableInfiniteScroll: false,
-                  enlargeStrategy: CenterPageEnlargeStrategy.height,
-                ),
-                items: Category.categories.map((categorys) => HeroCarousalCard(category: categorys)).toList(),
-              )
-          ),
-          const SectionTitle(title: 'RECOMMENDED',),
-          ProductCarousel(products: Product.products.where((product) => product.isRecommended).toList(),),
-          const SectionTitle(title: 'MOST POPULAR',),
-          ProductCarousel(products: Product.products.where((product) => product.isPopular).toList(),)
+                    enlargeCenterPage: true,
+                    enableInfiniteScroll: false,
+                    enlargeStrategy: CenterPageEnlargeStrategy.height,
+                  ),
+                  items: Category.categories.map((categorys) => HeroCarousalCard(category: categorys)).toList(),
+                )
+            ),
+            const SectionTitle(title: 'RECOMMENDED',),
+            ProductCarousel(products: Product.products.where((product) => product.isRecommended).toList(),),
+            const SectionTitle(title: 'MOST POPULAR',),
+            ProductCarousel(products: Product.products.where((product) => product.isPopular).toList(),)
 
-        ],
+          ],
+        ),
       ),
 
     );

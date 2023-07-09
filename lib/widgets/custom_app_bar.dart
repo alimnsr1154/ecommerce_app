@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class Custom_app_bar extends StatelessWidget implements PreferredSizeWidget{
   late String title;
   Custom_app_bar({
+    super.key,
     required this.title,
   });
 
@@ -14,7 +15,7 @@ class Custom_app_bar extends StatelessWidget implements PreferredSizeWidget{
       elevation: 0,
       title: Container(
         color: Colors.black,
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: 20,
           vertical: 20,
         ),
@@ -23,14 +24,14 @@ class Custom_app_bar extends StatelessWidget implements PreferredSizeWidget{
         style : Theme.of(context).textTheme.displayMedium!.copyWith(color: Colors.white),
         ),
       ),
-      iconTheme: IconThemeData(color: Colors.black),
+      iconTheme: const IconThemeData(color: Colors.black),
       actions: [IconButton(onPressed: (){
         Navigator.pushNamed(context, '/wishlist');
-      }, icon: Icon(Icons.favorite))],
+      }, icon: const Icon(Icons.favorite))],
     );
   }
 
   @override
   // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(50.0);
+  Size get preferredSize => const Size.fromHeight(50.0);
 }
