@@ -35,11 +35,13 @@ class WishlistScreen extends StatelessWidget {
               ),
               itemCount: state.wishList.products.length,
               itemBuilder: (BuildContext context, index) {
-                return product_card(
-                  products: state.wishList.products[index],
-                  width: 1,
-                  leftPosition: 150,
-                  isWishlist: true,
+                return Center(
+                  child: product_card(
+                    products: state.wishList.products[index],
+                    width: 1,
+                    leftPosition: 150,
+                    isWishlist: true,
+                  ),
                 );
               });
           }

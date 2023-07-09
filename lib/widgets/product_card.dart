@@ -28,7 +28,7 @@ class product_card extends StatelessWidget {
           Container(
             width: widthvalue,
             height: 150,
-            child: Image.network(products.image_url,
+            child: Image.asset(products.image_url,
               fit: BoxFit.cover,),
           ),
           Positioned(
@@ -82,6 +82,8 @@ class product_card extends StatelessWidget {
                         if(state is CartLoaded) {
                           return Expanded(child: IconButton(onPressed: (){
                           context.read<CartBloc>().add(CartAdded(products));
+                          const snackBar = SnackBar(content: Center(child: Text('Added to Cart Successfully')));
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         }, icon: const Icon(Icons.add_circle,color: Colors.white,)));
                         }
                         else {

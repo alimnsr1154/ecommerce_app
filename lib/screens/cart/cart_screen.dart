@@ -1,5 +1,4 @@
-import 'package:ecom/bloc/cart/cart_bloc.dart';
-import 'package:ecom/models/models.dart';
+import 'package:ecom/bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:ecom/widgets/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,8 +9,8 @@ class CartScreen extends StatelessWidget {
 
   static Route route() {
     return MaterialPageRoute(
-        settings:RouteSettings(name : routeName) ,
-        builder: (_)=> CartScreen());
+        settings:const RouteSettings(name : routeName) ,
+        builder: (_)=> const CartScreen());
   }
   @override
   Widget build(BuildContext context) {
@@ -19,14 +18,16 @@ class CartScreen extends StatelessWidget {
       appBar: Custom_app_bar(title: 'Cart Screen'),
       bottomNavigationBar:BottomAppBar(
         color: Colors.black,
-        child: Container(
+        child: SizedBox(
           height: 70,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ElevatedButton(
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.pushNamed(context, '/checkout');
+                  },
                   child: Text('GO TO CHECKOUT',style: Theme.of(context).textTheme.displaySmall,))
             ],
           ),
@@ -34,10 +35,11 @@ class CartScreen extends StatelessWidget {
       ),
       body: BlocBuilder<CartBloc, CartState>(
   builder: (context, state) {
-    if(state is CartLoading)
-    return Center(
+    if(state is CartLoading) {
+      return const Center(
         child: CircularProgressIndicator(),
       );
+    }
     if(state is CartLoaded)
       {
         return Padding(
@@ -51,7 +53,7 @@ class CartScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Text(const Cart().freeDeliveryString,
+                        Text( state.cart.freeDeliveryString,
                             style: Theme.of(context).textTheme.bodySmall),
                         ElevatedButton(onPressed: () {
                           Navigator.pushNamed(context, '/');
@@ -70,76 +72,15 @@ class CartScreen extends StatelessWidget {
                         itemBuilder: (context,index){
                           return CartProductCard(
                               product:state.cart.productQuantity(state.cart.products).keys.elementAt(index),
-                              quantity : state.cart.productQuantity(state.cart.products).values.elementAt(index));
+                              quantity : state.cart.productQuantity(state.cart.products).values.elementAt(index)
+                          );
                         },
                       ),
                     ),
-                    const SizedBox(height: 10,
-                    ),
+                    const OrderSummary(),
                   ],
                 ),
               ),
-              Column(
-                children: [
-                  const Divider(thickness: 1),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0,vertical: 10.0),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text('SUBTOTAL',style: Theme.of(context).textTheme.bodyLarge,),
-                            Text('\$${state.cart.subtotalString}',style: Theme.of(context).textTheme.bodyLarge,),
-
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text('DELIVERY FEE',style: Theme.of(context).textTheme.bodyLarge,),
-                            Text('\$${state.cart.deliveryfeeString}',style: Theme.of(context).textTheme.bodyLarge,),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Stack(
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          color: Colors.black.withAlpha(50),
-                        ),
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        margin: const EdgeInsets.all(5.0),
-                        height: 50,
-                        decoration: const BoxDecoration(
-                          color: Colors.black,
-                        ),
-                        child:Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('TOTAL',style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.white),),
-                              Text('\$${state.cart.totalString}',style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.white),),
-                            ],
-                          ),
-                        ),
-                      ),
-
-                    ],
-                  ),
-                ],
-              ),
-
             ],
           ),
         );

@@ -22,7 +22,7 @@ class ProductScreen extends StatelessWidget {
       appBar: Custom_app_bar(title: product.name),
       bottomNavigationBar:BottomAppBar(
         color: Colors.black,
-        child: Container(
+        child: SizedBox(
           height: 70,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -34,19 +34,23 @@ class ProductScreen extends StatelessWidget {
                 context.read<WishlistBloc>().add(AddWishlist(product));
                 const snackBar = SnackBar(content: Text('Added to Wishlist!'));
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  }, icon: const Icon(Icons.favorite,color: Colors.white));
+                  },
+                icon: const Icon(Icons.favorite,color: Colors.white));
 
   },
 ),
               BlocBuilder<CartBloc, CartState>(
                   builder: (context, state) {
                     return ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
-                  onPressed: (){
-                    context.read<CartBloc>().add(CartAdded(product));
-                    Navigator.pushNamed(context, '/cart');
-                  },
-                  child: Text('ADD TO CART',style: Theme.of(context).textTheme.displaySmall,));
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
+                      onPressed: (){
+                      context.read<CartBloc>().add(CartAdded(product));
+                      Navigator.pushNamed(context, '/cart');
+                      const snackBar = SnackBar(content: Center(child: Text('Added to Cart Successfully')));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        },
+                      child: Text('ADD TO CART',style: Theme.of(context).textTheme.displaySmall,)
+                    );
   },
 ),
             ],

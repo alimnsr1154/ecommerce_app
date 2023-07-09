@@ -16,13 +16,13 @@ class Custom_nav_bar extends StatelessWidget {
           children: [
             IconButton(onPressed: (){
               Navigator.pushNamed(context, '/');
-            }, icon: Icon(Icons.home,size: 35.0,color: Colors.white,)),
+            }, icon: const Icon(Icons.home,size: 35.0,color: Colors.white,)),
             IconButton(onPressed: (){
               Navigator.pushNamed(context, '/cart');
-            }, icon: Icon(Icons.shopping_cart,size: 35.0,color: Colors.white,)),
+            }, icon: const Icon(Icons.shopping_cart,size: 35.0,color: Colors.white,)),
             IconButton(onPressed: (){
               Navigator.pushNamed(context, '/user');
-            }, icon: Icon(Icons.person,size: 35.0,color: Colors.white,)),
+            }, icon: const Icon(Icons.person,size: 35.0,color: Colors.white,)),
           ],
         ),
       ),

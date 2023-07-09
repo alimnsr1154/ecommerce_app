@@ -7,15 +7,19 @@ class AppRouter{
     print('this is a route ${settings.name}');
     switch(settings.name) {
       case '/':
-          return HomeScreen.route();
-      case CartScreen.routeName :
+    return HomeScreen.route();
+    case CartScreen.routeName :
         return CartScreen.route();
       case CatalogScreen.routeName :
         return CatalogScreen.route(category : settings.arguments as Category);
+      case SplashScreen.routeName :
+        return SplashScreen.route();
       case ProductScreen.routeName :
         return ProductScreen.route(products : settings.arguments as Product);
       case WishlistScreen.routeName :
         return WishlistScreen.route();
+      case CheckoutScreen.routeName :
+        return CheckoutScreen.route();
       default :
         return _error();
     }
