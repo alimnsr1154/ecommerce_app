@@ -22,6 +22,8 @@ class AppRouter {
         return CheckoutScreen.route();
       case OrderConfirmaton.routeName:
         return OrderConfirmaton.route();
+      case PaymentScreen.routeName:
+        return PaymentScreen.route();
       default:
         return _error();
     }

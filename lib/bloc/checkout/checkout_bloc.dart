@@ -10,14 +10,18 @@ part 'checkout_event.dart';
 part 'checkout_state.dart';
 class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
   final CartBloc _cartBloc;
+  final PaymentBloc _paymentBloc;
   final CheckoutRepository _checkoutRepository;
   StreamSubscription? _cartSubscription;
+  StreamSubscription? _paymentSubscription;
   StreamSubscription? _checkoutSubscription;
 
   CheckoutBloc({
     required CartBloc cartBloc,
+    required PaymentBloc paymentBloc,
     required CheckoutRepository checkoutRepository,
   })  : _cartBloc = cartBloc,
+        _paymentBloc = paymentBloc,
         _checkoutRepository = checkoutRepository,
         super(
         cartBloc.state is CartLoaded
@@ -41,7 +45,12 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
         }
       },
     );
-
+    _paymentSubscription = _paymentBloc.stream.listen((state) {
+      if(state is PaymentLoaded)
+        {
+          add( UpdateCheckout(paymentMethod: state.paymentMethod),);
+        }
+    });
   }
 
   void _onUpdateCheckout(
@@ -62,6 +71,7 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
           city: event.city ?? state.city,
           country: event.country ?? state.country,
           zipCode: event.zipCode ?? state.zipCode,
+          paymentMethod: event.paymentMethod ?? state.paymentMethod
         ),
       );
     }
@@ -84,6 +94,7 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
   @override
   Future<void> close() {
     _cartSubscription?.cancel();
+    _paymentSubscription?.cancel();
     return super.close();
   }
 }

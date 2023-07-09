@@ -29,6 +29,8 @@ class MyApp extends StatelessWidget {
           lazy: false,
         ),
         BlocProvider(create: (_) => CartBloc()..add(CartStarted())),
+        BlocProvider(create: (_) => PaymentBloc()..add(LoadPaymentMethod())),
+
         BlocProvider(
             create: (_) =>
                 CategoryBloc(categoryRepository: CategoryRepository())
@@ -39,7 +41,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (context) => CheckoutBloc(
                 checkoutRepository: CheckoutRepository(),
-                cartBloc: context.read<CartBloc>())),
+                cartBloc: context.read<CartBloc>(),
+            paymentBloc: context.read<PaymentBloc>())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

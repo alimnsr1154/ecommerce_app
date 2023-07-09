@@ -8,33 +8,32 @@ class CatalogScreen extends StatelessWidget {
 
   static Route route({required Category category}) {
     return MaterialPageRoute(
-        settings:const RouteSettings(name : routeName) ,
-        builder: (_)=> CatalogScreen(category : category));
+        settings: const RouteSettings(name: routeName),
+        builder: (_) => CatalogScreen(category: category));
   }
 
   const CatalogScreen({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
-    final List<Product> categoryproduct = Product.products.where((product) => product.category == category.name).toList();
+    final List<Product> categoryproduct = Product.products
+        .where((product) => product.category == category.name)
+        .toList();
     return Scaffold(
       appBar: Custom_app_bar(title: category.name),
-      bottomNavigationBar:const Custom_nav_bar(),
+      bottomNavigationBar: const Custom_nav_bar(),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 16.0),
-        child: GridView.builder(gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 12
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+        child: GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2, crossAxisSpacing: 12),
             itemCount: categoryproduct.length,
-            itemBuilder: (BuildContext context,index)
-        {
-          return product_card(
-              products: categoryproduct[index],
-              width: 2.2);
-        }),
+            itemBuilder: (BuildContext context, index) {
+              return product_card.catalog(
+                products: categoryproduct[index],
+              );
+            }),
       ),
     );
   }
 }
-

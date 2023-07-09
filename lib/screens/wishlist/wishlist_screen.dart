@@ -1,5 +1,4 @@
 import 'package:ecom/bloc/wishlist/wishlist_bloc.dart';
-import 'package:ecom/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:ecom/widgets/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,16 +32,13 @@ class WishlistScreen extends StatelessWidget {
                     horizontal: 8.0, vertical: 16.0),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 1,
-                  childAspectRatio: 2.2,
+                  childAspectRatio: 2,
                 ),
-                itemCount: 1,
+                itemCount: state.wishList.products.length,
                 itemBuilder: (BuildContext context, index) {
                   return Center(
-                    child: product_card(
-                      products: Product.products[1],
-                      width: 1,
-                      leftPosition: 150,
-                      isWishlist: true,
+                    child: product_card.wishlist(
+                      products:  state.wishList.products[index],
                     ),
                   );
                 }),

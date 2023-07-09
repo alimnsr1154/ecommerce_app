@@ -21,6 +21,7 @@ class CheckoutLoaded extends CheckoutState {
   final String? deliveryFee;
   final String? total;
   final Checkout checkout;
+  final PaymentMethod paymentMethod;
 
   CheckoutLoaded(
       {this.fullName,
@@ -32,7 +33,8 @@ class CheckoutLoaded extends CheckoutState {
       this.products,
       this.total,
       this.deliveryFee,
-      this.subtotal})
+      this.subtotal,
+      this.paymentMethod = PaymentMethod.google_pay})
       : checkout = Checkout(
           fullName: fullName,
           email: email,
@@ -57,6 +59,7 @@ class CheckoutLoaded extends CheckoutState {
         products,
         subtotal,
         deliveryFee,
-        total
+        total,
+        paymentMethod
       ];
 }

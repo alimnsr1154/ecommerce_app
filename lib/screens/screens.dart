@@ -6,3 +6,4 @@ export 'wishlist/wishlist_screen.dart';
 export 'Splash/splash_screen.dart';
 export 'checkout/checkout_screen.dart';
 export 'order/order.dart';
+export 'payment_selection/payment_selection_screen.dart';
