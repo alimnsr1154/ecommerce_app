@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecom/models/models.dart';
-import 'package:ecom/repositories/product/base_product_respository.dart';
+import 'package:ecom/repositories/product/base_product_repository.dart';
 
 class ProductRepository extends BaseProductRepository {
   final FirebaseFirestore _firebaseFirestore;
