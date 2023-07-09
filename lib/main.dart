@@ -49,9 +49,10 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (_) => CartBloc()..add(CartStarted())),
           BlocProvider(create: (_) => PaymentBloc()..add(LoadPaymentMethod())),
           BlocProvider(
-              create: (_) =>
-                  CategoryBloc(categoryRepository: CategoryRepository())
-                    ..add(LoadCategories())),
+            create: (_) =>
+                CategoryBloc(categoryRepository: CategoryRepository())
+                  ..add(LoadCategories()),
+          ),
           BlocProvider(
               create: (_) => ProductBloc(productRepository: ProductRepository())
                 ..add(LoadProducts())),
