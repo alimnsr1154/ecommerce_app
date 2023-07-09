@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (context) => CheckoutBloc(
                 checkoutRepository: CheckoutRepository(),
-                cartBloc: context.read()<CartBloc>())),
+                cartBloc: context.read<CartBloc>())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

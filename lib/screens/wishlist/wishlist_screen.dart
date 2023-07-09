@@ -26,24 +26,27 @@ class WishlistScreen extends StatelessWidget {
             return const Center(child: CircularProgressIndicator(),);
           }
           if(state is WishlistLoaded) {
-            return GridView.builder(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0, vertical: 16.0),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 1,
-                childAspectRatio: 2.2,
-              ),
-              itemCount: state.wishList.products.length,
-              itemBuilder: (BuildContext context, index) {
-                return Center(
-                  child: product_card(
-                    products: state.wishList.products[index],
-                    width: 1,
-                    leftPosition: 150,
-                    isWishlist: true,
-                  ),
-                );
-              });
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: GridView.builder(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 8.0, vertical: 16.0),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1,
+                  childAspectRatio: 2.2,
+                ),
+                itemCount: 1,
+                itemBuilder: (BuildContext context, index) {
+                  return Center(
+                    child: product_card(
+                      products: Product.products[1],
+                      width: 1,
+                      leftPosition: 150,
+                      isWishlist: true,
+                    ),
+                  );
+                }),
+            );
           }
           else{
             return const Text('something went wrong');

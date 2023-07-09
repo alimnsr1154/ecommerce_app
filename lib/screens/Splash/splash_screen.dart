@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
         children: [
           const Center(
             child: CircleAvatar(
-              backgroundImage: AssetImage('images/shop.jpg'),
+              backgroundImage: AssetImage('assets/images/shop.jpg'),
               radius: 100,
             ),
           ),

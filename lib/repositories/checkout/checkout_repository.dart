@@ -1,5 +1,3 @@
-import 'dart:js_interop';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecom/models/checkout_model.dart';
 import 'package:ecom/repositories/checkout/base_checkout_repository.dart';
