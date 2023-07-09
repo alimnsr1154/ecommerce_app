@@ -1,9 +1,12 @@
+import 'package:ecom/bloc/cart/cart_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:ecom/models/models.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartProductCard extends StatelessWidget {
   final Product product;
-  const CartProductCard({super.key,required this.product});
+  final int quantity;
+  const CartProductCard({super.key,required this.product,required this.quantity});
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +31,21 @@ class CartProductCard extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10,),
-          Row(
+          BlocBuilder<CartBloc, CartState>(
+          builder: (context, state) {
+            return Row(
             children: [
-              IconButton(onPressed: (){}, icon: const Icon(Icons.remove_circle),),
-              Text('1',style: Theme.of(context).textTheme.bodyLarge,),
-              IconButton(onPressed: (){}, icon: const Icon(Icons.add_circle),),
-
+              IconButton(onPressed: (){
+                context.read<CartBloc>().add(CartRemove(product));
+              }, icon: const Icon(Icons.remove_circle),),
+              Text(quantity.toString(),style: Theme.of(context).textTheme.bodyLarge,),
+              IconButton(onPressed: (){
+                context.read<CartBloc>().add(CartAdded(product));
+              }, icon: const Icon(Icons.add_circle),),
             ],
-          )
+          );
+  },
+)
 
         ],
       ),

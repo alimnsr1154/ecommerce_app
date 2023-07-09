@@ -9,8 +9,8 @@ class HomeScreen extends StatelessWidget {
 
   static Route route() {
     return MaterialPageRoute(
-        settings:RouteSettings(name : routeName) ,
-        builder: (_)=> HomeScreen());
+        settings:const RouteSettings(name : routeName) ,
+        builder: (_)=> const HomeScreen());
   }
   @override
   Widget build(BuildContext context) {
@@ -20,18 +20,16 @@ class HomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-                child: CarouselSlider(
-                  options: CarouselOptions(
-                    aspectRatio: 1.5,
-                    viewportFraction: 0.9,
+            CarouselSlider(
+              options: CarouselOptions(
+                aspectRatio: 1.5,
+                viewportFraction: 0.9,
 
-                    enlargeCenterPage: true,
-                    enableInfiniteScroll: false,
-                    enlargeStrategy: CenterPageEnlargeStrategy.height,
-                  ),
-                  items: Category.categories.map((categorys) => HeroCarousalCard(category: categorys)).toList(),
-                )
+                enlargeCenterPage: true,
+                enableInfiniteScroll: false,
+                enlargeStrategy: CenterPageEnlargeStrategy.height,
+              ),
+              items: Category.categories.map((categorys) => HeroCarousalCard(category: categorys)).toList(),
             ),
             const SectionTitle(title: 'RECOMMENDED',),
             ProductCarousel(products: Product.products.where((product) => product.isRecommended).toList(),),
