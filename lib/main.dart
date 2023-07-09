@@ -1,18 +1,23 @@
 import 'package:ecom/bloc/bloc.dart';
 import 'package:ecom/config/app_route.dart';
 import 'package:ecom/config/theme.dart';
+import 'package:ecom/models/models.dart';
 import 'package:ecom/observer.dart';
 import 'package:ecom/repositories/category/category_repository.dart';
 import 'package:ecom/repositories/checkout/checkout_repository.dart';
+import 'package:ecom/repositories/local_storage/local_storage_repository.dart';
 import 'package:ecom/repositories/product/product_repository.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:ecom/screens/screens.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await Hive.initFlutter();
+  Hive.registerAdapter(ProductAdapter());
   initializeBlocObserver();
   runApp(const MyApp());
 }
@@ -25,7 +30,9 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => WishlistBloc()..add(StartWishlist()),
+          create: (_) => WishlistBloc(
+            localStorageRepository:  LocalStorageRepository(),
+          )..add(StartWishlist()),
           lazy: false,
         ),
         BlocProvider(create: (_) => CartBloc()..add(CartStarted())),
