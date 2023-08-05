@@ -41,7 +41,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         listener: (context, state) {
           if (state is Authenticated) {
             // Navigating to the dashboard screen if the user is authenticated
-            Navigator.of(context).pushReplacementNamed('/');
+            Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
           }
           if (state is AuthError) {
             // Displaying the error message if the user is not authenticated
