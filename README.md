@@ -5,6 +5,8 @@ An E-commerce Flutter project.
 ## Getting Started
 
 I created this e-commerce appliacation using the bloc as the state management package.The database backend is connected with the cloud firestore.I have also enabled the firebase authentication for the login and signup.The payment method i integrate is the google pay.For wishlist,I have used the local storage with the help of hive package.
+
+
 ### Splash Screen
 
 <div align="center" width="50">
